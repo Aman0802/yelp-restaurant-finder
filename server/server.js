@@ -16,6 +16,7 @@ app.get("/api/v1/restaurants", async (req, res) => {
   // const response = await db.query("SELECT * FROM restaurants;");
   const restaurantRatingsData = await db.query(
     "SELECT * FROM restaurants LEFT JOIN (SELECT restaurant_id, COUNT(*), TRUNC(AVG(RATING), 1) AS average_rating FROM reviews GROUP BY restaurant_id) reviews ON restaurants.id = reviews.restaurant_id;"
+    // OR "SELECT * FROM restaurants LEFT JOIN (SELECT restaurant_id, COUNT(*), TRUNC(AVG(RATING), 1) AS average_rating FROM reviews GROUP BY restaurant_id) AS temp reviews ON restaurants.id = temp.restaurant_id;"
   );
   try {
     res.json({
